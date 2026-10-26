@@ -324,7 +324,7 @@ uninstall_9router() {
   info "Removing app directory ($APP_DIR) ..."
   rm -rf "$APP_DIR"
 
-  read -rp "Also DELETE all 9router data in $DATA_DIR? [y/N]: " DELDATA < /dev/tty < /dev/tty
+  read -rp "Also DELETE all 9router data in $DATA_DIR? [y/N]: " DELDATA < /dev/tty
   if [[ "$DELDATA" == "y" || "$DELDATA" == "Y" ]]; then
     rm -rf "$DATA_DIR"
     info "Data directory removed."
@@ -372,11 +372,13 @@ disable_autoupdate() {
 # MODE SELECTION
 # =============================================================
 if [[ -z "${1:-}" ]]; then
-  if [[ -t 0 ]]; then
+  # Menu is shown whenever we have a terminal (works with the piped
+  # one-liner too: stdin is the script, so we read the choice from /dev/tty)
+  if [[ -t 1 ]] && exec 3<>/dev/tty 2>/dev/null; then
     echo "=== 9router Manager ==="
     echo "  1) Install / Update (smart)"
     echo "  2) Uninstall"
-    read -rp "Select [1-2]: " CHOICE
+    read -rp "Select [1-2]: " CHOICE < /dev/tty
     case "$CHOICE" in
       1) MODE="main" ;;
       2) MODE="uninstall" ;;
