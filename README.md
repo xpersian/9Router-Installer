@@ -5,7 +5,7 @@
 ## ⚡ One-line install
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/xpersian/9Router-Installer/main/9router-npm-script.sh -o install.sh
+curl -fsSL https://raw.githubusercontent.com/xpersian/9Router-Installer/main/9router-npm-script.sh -o 9router-npm-script.sh
 sudo bash 9router-npm-script.sh
 ```
 
